@@ -3,14 +3,37 @@ import { CardFooter } from 'react-bootstrap';
 import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
 
+//------------------------------------------------
+
+import { useDispatch } from 'react-redux';
+import { add } from '../store/cartSlice';
+
+//------------------------------------------------
 const Product = () => {
     const [products, getProduct] = useState([]);
+
     useEffect(() => {
         //api call
         fetch('https://fakestoreapi.com/products')
             .then(data => data.json())
             .then(result => getProduct(result))
     }, []);
+
+
+    // ...................................................................................................................................
+
+    // ee step store and slice okk create cheythathine shesham aan
+
+    const dispatch = useDispatch();
+
+    //map function nte ullil il ulla "product" aan ithilum koduthath
+    const addToCart = (product) => {
+        // dispatch an add action // ith cheyyan "dispatch" and "add"(add to cart aakkan ulla add -> it is from cartSlice.js file) um import cheyyanam //
+        dispatch(add(product)) 
+    }
+
+    // ...................................................................................................................................
+
 
     const cards = products.map(product => (
         <div className='col-md-3' style={{ marginBottom: '10px' }}>
@@ -24,7 +47,10 @@ const Product = () => {
 
                 </Card.Body>
                 <Card.Footer>
-                    <Button variant="primary">Add to cart</Button>
+
+                    {/* map function nte ullil il ulla "product" aan ith */}
+                    <Button variant="primary" onClick={() => addToCart(product)}>Add to cart</Button>
+
                 </Card.Footer>
             </Card>
         </div>
